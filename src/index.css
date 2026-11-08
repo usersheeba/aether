@@ -1,0 +1,871 @@
+@import "./fonts.css";
+@import "./design/tokens.css";
+@import "tailwindcss";
+@import "./design/components.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Aether Writer uses the semantic tokens in src/design/tokens.css. The
+ * @theme block below only exposes those tokens to Tailwind utilities; it does
+ * not define colours of its own.
+ */
+:root {
+  --motion-micro: var(--ds-duration-micro);
+  --motion-ease-out: var(--ds-ease-out);
+  --shadow-popover: var(--ds-shadow-popover);
+  --shadow-sheet: var(--ds-shadow-sheet);
+}
+
+@theme inline {
+  --font-sans: var(--ds-font-ui);
+  --font-serif: var(--ds-font-editor);
+  --font-mono: var(--ds-font-mono);
+
+  --text-display: var(--ds-text-display-size);
+  --text-title: var(--ds-text-title-size);
+  --text-heading: var(--ds-text-heading-size);
+  --text-body: var(--ds-text-body-size);
+  --text-ui: var(--ds-text-ui-size);
+  --text-small: var(--ds-text-small-size);
+  --text-caption: var(--ds-text-caption-size);
+  --text-editor: var(--ds-text-editor-size);
+
+  --radius-sm: var(--ds-radius-sm);
+  --radius-md: var(--ds-radius-md);
+  --radius-lg: var(--ds-radius-lg);
+  --radius-xl: var(--ds-radius-xl);
+
+  --color-canvas: var(--ds-color-canvas);
+  --color-surface: var(--ds-color-surface);
+  --color-surface-muted: var(--ds-color-surface-muted);
+  --color-sidebar: var(--ds-color-sidebar);
+  --color-overlay: var(--ds-color-overlay);
+
+  --color-hover: var(--ds-color-hover);
+  --color-active: var(--ds-color-active);
+  --color-selected: var(--ds-color-selected);
+  --color-selected-strong: var(--ds-color-selected-strong);
+
+  --color-line: var(--ds-color-border);
+  --color-line-strong: var(--ds-color-border-strong);
+  --color-control: var(--ds-color-control-border);
+
+  --color-ink: var(--ds-color-text);
+  --color-ink-muted: var(--ds-color-text-muted);
+  --color-ink-faint: var(--ds-color-text-faint);
+  --color-placeholder: var(--ds-color-text-placeholder);
+
+  --color-accent: var(--ds-color-accent);
+  --color-accent-hover: var(--ds-color-accent-hover);
+  --color-accent-active: var(--ds-color-accent-active);
+  --color-accent-solid: var(--ds-color-accent);
+  --color-accent-solid-hover: var(--ds-color-accent-hover);
+  --color-accent-soft: var(--ds-color-accent-tint);
+  --color-accent-strong: var(--ds-color-accent-strong);
+  --color-on-accent: var(--ds-color-on-accent);
+  --color-focus: var(--ds-color-focus);
+
+  --color-danger: var(--ds-color-danger);
+  --color-danger-hover: var(--ds-color-danger-hover);
+  --color-danger-soft: var(--ds-color-danger-soft);
+  --color-warning: var(--ds-color-warning);
+  --color-warning-soft: var(--ds-color-warning-soft);
+  --color-success: var(--ds-color-success);
+  --color-success-soft: var(--ds-color-success-soft);
+  --color-info: var(--ds-color-info);
+  --color-info-soft: var(--ds-color-info-soft);
+
+  --color-disabled: var(--ds-color-disabled-text);
+  --color-disabled-bg: var(--ds-color-disabled-bg);
+
+  --shadow-card: var(--ds-shadow-card);
+  --shadow-popover: var(--ds-shadow-popover);
+  --shadow-sheet: var(--ds-shadow-sheet);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    background-color: var(--ds-color-canvas);
+    color: var(--ds-color-text);
+    font-family: var(--ds-font-ui);
+    font-size: var(--ds-text-ui-size);
+    line-height: var(--ds-text-ui-line);
+    overflow: hidden;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--ds-color-selected-strong);
+    color: var(--ds-color-text);
+  }
+
+  /*
+   * One motion system: short and decelerating, colour-only by default so
+   * nothing jumps or bounces. Width changes are opt-in per surface.
+   */
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  [role="tab"],
+  [role="treeitem"],
+  [role="menuitem"] {
+    transition:
+      background-color 140ms ease-out,
+      color 140ms ease-out,
+      border-color 140ms ease-out,
+      opacity 140ms ease-out;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ds-color-focus);
+    outline-offset: 1px;
+    border-radius: var(--ds-radius-sm);
+  }
+
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--ds-color-text-placeholder);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--ds-color-text-faint) 34%, transparent);
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--ds-color-text-faint) 55%, transparent);
+    background-clip: content-box;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .save-status-pulse {
+      animation: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Popovers enter the way they leave: 120ms, no bounce. */
+@keyframes popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(-2px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.popover-in {
+  animation: popover-in 160ms var(--motion-ease-out) both;
+  transform-origin: top center;
+}
+
+.menu-popover {
+  transform-origin: top left;
+}
+
+.toolbar-customizer-menu {
+  transform-origin: top right;
+}
+
+.context-menu[data-state="open"] {
+  animation: floating-menu-in 160ms var(--motion-ease-out) both;
+  transform-origin: var(--menu-origin-x, 0%) var(--menu-origin-y, 0%);
+}
+
+.context-menu[data-state="closing"] {
+  pointer-events: none;
+  animation: floating-menu-out 120ms ease-in both;
+  transform-origin: var(--menu-origin-x, 0%) var(--menu-origin-y, 0%);
+}
+
+.bubble-menu {
+  animation: bubble-menu-in 140ms ease-out both;
+}
+
+@keyframes bubble-menu-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.search-panel {
+  transform-origin: top right;
+}
+
+@media (max-width: 899px) {
+  .workspace-drawer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 20;
+    width: min(var(--drawer-width), calc(100% - 2rem)) !important;
+    border-color: var(--ds-color-border);
+    transition: transform 220ms var(--motion-ease-out) !important;
+  }
+
+  .workspace-drawer-left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+
+  .workspace-drawer-right {
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  .workspace-drawer[data-visible="true"] {
+    transform: translateX(0);
+    box-shadow: var(--shadow-popover);
+  }
+
+  .workspace-drawer-left {
+    --drawer-width: 276px;
+  }
+
+  .workspace-drawer-right {
+    --drawer-width: 288px;
+  }
+
+  .workspace-drawer-content {
+    width: 100% !important;
+  }
+
+  .workspace-panel-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: block;
+    border: 0;
+    background: var(--ds-color-overlay);
+    animation: panel-backdrop-in 180ms ease-out both;
+  }
+}
+
+@media (min-width: 900px) {
+  .workspace-panel-backdrop {
+    display: none;
+  }
+}
+
+@keyframes panel-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes floating-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes floating-menu-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(2px) scale(0.99);
+  }
+}
+
+@media (max-width: 420px) {
+  .search-panel__replace {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+}
+
+.modal-backdrop[data-state="open"] {
+  animation: modal-backdrop-in 200ms ease-out both;
+}
+
+.modal-backdrop[data-state="closing"] {
+  pointer-events: none;
+  animation: modal-backdrop-out 140ms ease-in both;
+}
+
+.modal-panel[data-state="open"] {
+  animation: modal-panel-in 240ms var(--motion-ease-out) both;
+  transform-origin: center;
+}
+
+.modal-panel[data-state="closing"] {
+  animation: modal-panel-out 160ms ease-in both;
+  transform-origin: center;
+}
+
+@keyframes modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-backdrop-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modal-panel-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(3px) scale(0.995);
+  }
+}
+
+.template-option {
+  transition:
+    transform var(--motion-micro) var(--motion-ease-out),
+    background-color var(--motion-micro) ease-out,
+    border-color var(--motion-micro) ease-out;
+}
+
+.template-option:active {
+  transform: scale(0.99);
+}
+
+.start-page-enter {
+  animation: start-page-enter 360ms var(--motion-ease-out) both;
+}
+
+@keyframes start-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.start-page-button,
+.project-open-button {
+  transition:
+    transform var(--motion-micro) var(--motion-ease-out),
+    background-color var(--motion-micro) ease-out,
+    color var(--motion-micro) ease-out;
+}
+
+.start-page-button:active {
+  transform: scale(0.98);
+}
+
+.project-open-button:active {
+  transform: scale(0.995);
+}
+
+.project-action {
+  transition:
+    opacity var(--motion-micro) ease-out,
+    background-color var(--motion-micro) ease-out,
+    color var(--motion-micro) ease-out;
+}
+
+.editor-focus-surface {
+  transform-origin: top center;
+}
+
+.status-progress-fill {
+  transform-origin: left center;
+  transition: transform 300ms var(--motion-ease-out);
+}
+
+.editor-canvas.is-focus-mode .editor-focus-surface {
+  animation: focus-mode-enter 240ms var(--motion-ease-out) both;
+}
+
+@keyframes focus-mode-enter {
+  from {
+    opacity: 0.88;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.binder-tree-row::before {
+  position: absolute;
+  inset-block: 25%;
+  inset-inline-start: 0;
+  width: 2px;
+  border-radius: 999px;
+  background: var(--ds-color-accent);
+  content: "";
+  opacity: 0;
+  transform: scaleY(0.6);
+  transition:
+    opacity var(--motion-micro) ease-out,
+    transform var(--motion-micro) var(--motion-ease-out);
+}
+
+[role="treeitem"][aria-selected="true"] > .binder-tree-row::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.binder-tree-item:focus-visible {
+  outline: none;
+}
+
+.binder-tree-item:focus-visible > .binder-tree-row {
+  outline: 2px solid var(--ds-color-accent);
+  outline-offset: 1px;
+}
+
+.inspector-tab-indicator {
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: center;
+  transition:
+    opacity var(--motion-micro) ease-out,
+    transform var(--motion-micro) var(--motion-ease-out);
+}
+
+.inspector-tab-indicator[data-active="true"] {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editor-canvas.is-focus-mode .editor-focus-surface {
+    animation-name: focus-mode-enter-reduced;
+  }
+
+  @keyframes focus-mode-enter-reduced {
+    from {
+      opacity: 0.88;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .modal-backdrop[data-state="open"] {
+    animation-name: modal-backdrop-in;
+  }
+
+  .modal-backdrop[data-state="closing"] {
+    animation-name: modal-backdrop-out;
+  }
+
+  .modal-panel[data-state="open"] {
+    animation-name: modal-panel-reduced-in;
+  }
+
+  .modal-panel[data-state="closing"] {
+    animation-name: modal-panel-reduced-out;
+  }
+
+  @keyframes modal-panel-reduced-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes modal-panel-reduced-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  .start-page-enter {
+    animation-name: start-page-enter-reduced;
+  }
+
+  @keyframes start-page-enter-reduced {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@media (hover: hover) {
+  .project-action:not([data-pinned="true"]) {
+    opacity: 0;
+  }
+
+  .group:hover .project-action,
+  .project-action:focus-visible {
+    opacity: 1;
+  }
+
+  .project-action {
+    width: 28px;
+    height: 28px;
+  }
+
+  .inspector-action {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .group:hover .inspector-action,
+  .inspector-action:focus-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.template-option__check {
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity var(--motion-micro) var(--motion-ease-out),
+    transform var(--motion-micro) var(--motion-ease-out);
+}
+
+.template-option[aria-pressed="true"] .template-option__check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (hover: hover) {
+  .template-option:not([aria-pressed="true"]):hover {
+    background-color: var(--ds-color-hover);
+  }
+}
+
+/* A quiet range control: 4px track, 12px thumb, no native chrome. */
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--ds-color-active);
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -4px;
+  height: 12px;
+  width: 12px;
+  border: none;
+  border-radius: 999px;
+  background: var(--ds-color-accent);
+}
+
+.range::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--ds-color-active);
+}
+
+.range::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border: none;
+  border-radius: 999px;
+  background: var(--ds-color-accent);
+}
+
+.range:focus-visible {
+  outline: none;
+}
+
+.range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--ds-color-accent-tint);
+}
+
+/* The manuscript surface: system chrome stays sans, the writing stays serif. */
+.ProseMirror {
+  outline: none;
+  min-height: 100%;
+  user-select: text;
+  color: var(--ds-color-text);
+  caret-color: var(--ds-color-accent);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.ProseMirror:focus-visible {
+  outline: none;
+}
+
+.ProseMirror img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.ProseMirror table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid var(--ds-color-border-strong);
+  padding: 0.35em 0.45em;
+  vertical-align: top;
+}
+
+/* Draft typography: paragraphs as separate blocks with a small gap. */
+.prose-draft .ProseMirror {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.prose-draft .ProseMirror > * + * {
+  margin-top: 0.85em;
+}
+
+.ProseMirror p {
+  margin: 0;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4 {
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 1.1em 0 0.35em;
+}
+
+.ProseMirror h1 {
+  font-size: 1.6em;
+}
+
+.ProseMirror h2 {
+  font-size: 1.3em;
+}
+
+.ProseMirror h3 {
+  font-size: 1.12em;
+}
+
+.ProseMirror h4 {
+  font-size: 1em;
+}
+
+.ProseMirror blockquote {
+  border-left: 2px solid var(--ds-color-border-strong);
+  padding-left: 0.9em;
+  color: var(--ds-color-text-muted);
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 1.2em;
+}
+
+.ProseMirror code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.92em;
+  background: var(--ds-color-hover);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+/*
+ * Book typography: one continuous block of prose, set the way a printed page
+ * sets it — justified, hyphenated, first-line indent, no gaps between
+ * paragraphs, and no indent on the first paragraph after a heading or a break.
+ */
+.prose-book .ProseMirror {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.prose-book .ProseMirror > p {
+  margin: 0;
+  text-indent: 1.4em;
+}
+
+.prose-book .ProseMirror > p:first-child,
+.prose-book .ProseMirror > h1 + p,
+.prose-book .ProseMirror > h2 + p,
+.prose-book .ProseMirror > h3 + p,
+.prose-book .ProseMirror > h4 + p,
+.prose-book .ProseMirror > blockquote + p,
+.prose-book .ProseMirror > ul + p,
+.prose-book .ProseMirror > ol + p,
+.prose-book .ProseMirror > pre + p,
+.prose-book .ProseMirror > hr + p {
+  text-indent: 0;
+}
+
+.prose-book .ProseMirror > * + * {
+  margin-top: 0;
+}
+
+.prose-book .ProseMirror > * + ul,
+.prose-book .ProseMirror > * + ol,
+.prose-book .ProseMirror > * + blockquote,
+.prose-book .ProseMirror > * + pre {
+  margin-top: 0.85em;
+}
+
+.paged-preview-viewport {
+  background: var(--ds-color-surface-muted);
+}
+
+.paged-preview-pages > .pagedjs_pages {
+  align-items: center;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+}
+
+.paged-preview-pages .pagedjs_page {
+  background: var(--ds-print-paper);
+  box-shadow: var(--ds-shadow-sheet);
+  color: var(--ds-print-text);
+  flex: none;
+  margin: 0 auto;
+}
+
+@media print {
+  html,
+  body,
+  #root {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  .paged-preview-root,
+  .paged-preview-root * {
+    visibility: visible !important;
+  }
+
+  .paged-preview-root {
+    background: var(--ds-print-paper) !important;
+    inset: 0 !important;
+    overflow: visible !important;
+    position: absolute !important;
+  }
+
+  .paged-preview-controls {
+    display: none !important;
+  }
+
+  .paged-preview-viewport {
+    overflow: visible !important;
+  }
+
+  .editor-focus-surface {
+    transform: none !important;
+  }
+
+  .paged-preview-pages {
+    display: block !important;
+    padding: 0 !important;
+  }
+
+  .paged-preview-pages > .pagedjs_pages {
+    display: block !important;
+    padding: 0 !important;
+  }
+
+  .pagedjs_page {
+    margin: 0 !important;
+    box-shadow: none !important;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .pagedjs_page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+}

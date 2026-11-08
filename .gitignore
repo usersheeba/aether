@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+vendor/
+.npm-cache/
+.pnpm-store/
+
+# Build output
+dist/
+target/
+out/
+coverage/
+.design/
+*.local
+*.tsbuildinfo
+
+# Tool caches
+.vite/
+.turbo/
+.cache/
+.parcel-cache/
+.rollup.cache/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Compiled files
+*.class
+*.o
+*.obj
+*.dll
+*.exe
+*.pdb
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db

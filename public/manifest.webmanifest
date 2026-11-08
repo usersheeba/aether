@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "Aether Writer",
+  "short_name": "Aether",
+  "description": "A local-first workspace for long-form writing.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

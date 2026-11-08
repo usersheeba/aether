@@ -1,0 +1,316 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Aether Writer design tokens.
+ *
+ * The token layer is the only place where raw colours live. Components read
+ * semantic variables (surfaces, text, states, project labels) so the light and
+ * dark themes stay in sync and the design playground can inspect the same
+ * values the application uses.
+ */
+
+/* -------------------------------------------------------------------------
+ * Light theme: Graphite & Mineral
+ * ---------------------------------------------------------------------- */
+:root,
+.theme-light {
+  color-scheme: light;
+
+  /* Surfaces */
+  --ds-color-canvas: #f7f8f7;
+  --ds-color-sidebar: #eceeec;
+  --ds-color-surface: #ffffff;
+  --ds-color-surface-muted: #f2f4f2;
+  --ds-color-overlay: rgb(32 37 36 / 32%);
+
+  /* Borders */
+  --ds-color-border: #d9ddda;
+  --ds-color-border-strong: #b9c1bd;
+  --ds-color-control-border: #7d8782;
+
+  /* Text */
+  --ds-color-text: #292f2e;
+  --ds-color-text-secondary: #747d79;
+  --ds-color-text-muted: #646d69;
+  --ds-color-text-faint: #8a938f;
+  --ds-color-text-placeholder: #68716d;
+
+  /* Accent */
+  --ds-color-accent: #49677e;
+  --ds-color-accent-hover: #3c566b;
+  --ds-color-accent-active: #334a5d;
+  --ds-color-accent-tint: #e8eff3;
+  --ds-color-accent-strong: #3f5d73;
+  --ds-color-on-accent: #ffffff;
+  --ds-color-focus: #49677e;
+
+  /* Interactive states */
+  --ds-color-hover: #e3e7e4;
+  --ds-color-active: #dce2de;
+  --ds-color-selected: #e8eff3;
+  --ds-color-selected-strong: #d7e4ec;
+  --ds-color-disabled-bg: #eceeec;
+  --ds-color-disabled-text: #a6aeaa;
+
+  /* Semantic feedback */
+  --ds-color-danger: #9a5a47;
+  --ds-color-danger-hover: #874b3a;
+  --ds-color-danger-soft: #f4e8e3;
+  --ds-color-warning: #8a6c36;
+  --ds-color-warning-soft: #f4ede0;
+  --ds-color-success: #5f7d63;
+  --ds-color-success-soft: #e9f0e8;
+  --ds-color-info: #49677e;
+  --ds-color-info-soft: #e8eff3;
+
+  /* Document status */
+  --ds-status-draft: #8a938f;
+  --ds-status-progress: #8a6c36;
+  --ds-status-review: #675e74;
+  --ds-status-final: #5f7d63;
+
+  /* Project labels: base / soft / foreground */
+  --ds-project-slate-blue-base: #68849d;
+  --ds-project-slate-blue-soft: #edf0f3;
+  --ds-project-slate-blue-foreground: #4c5e6b;
+
+  --ds-project-lavender-base: #9985ae;
+  --ds-project-lavender-soft: #f3f0f5;
+  --ds-project-lavender-foreground: #675e74;
+
+  --ds-project-sage-base: #8b9d83;
+  --ds-project-sage-soft: #f1f3f0;
+  --ds-project-sage-foreground: #5f6c5d;
+
+  --ds-project-terracotta-base: #bd8370;
+  --ds-project-terracotta-soft: #f7f0ee;
+  --ds-project-terracotta-foreground: #7a5d52;
+
+  --ds-project-dusty-rose-base: #b98491;
+  --ds-project-dusty-rose-soft: #f7f0f2;
+  --ds-project-dusty-rose-foreground: #785e64;
+
+  --ds-project-ochre-base: #b99a5f;
+  --ds-project-ochre-soft: #f7f3ec;
+  --ds-project-ochre-foreground: #786a49;
+
+  --ds-project-teal-base: #679a96;
+  --ds-project-teal-soft: #edf3f2;
+  --ds-project-teal-foreground: #4b6a67;
+
+  --ds-project-graphite-base: #828a8a;
+  --ds-project-graphite-soft: #f0f1f1;
+  --ds-project-graphite-foreground: #5a6161;
+
+  /* Compatibility aliases for existing raw-CSS consumers. */
+  --bg-canvas: var(--ds-color-canvas);
+  --bg-surface: var(--ds-color-surface);
+  --bg-sidebar: var(--ds-color-sidebar);
+  --bg-hover: var(--ds-color-hover);
+  --bg-active: var(--ds-color-active);
+  --line: var(--ds-color-border);
+  --line-strong: var(--ds-color-border-strong);
+  --text-main: var(--ds-color-text);
+  --text-muted: var(--ds-color-text-muted);
+  --text-faint: var(--ds-color-text-faint);
+  --accent: var(--ds-color-accent);
+  --accent-hover: var(--ds-color-accent-hover);
+  --accent-solid: var(--ds-color-accent);
+  --accent-solid-hover: var(--ds-color-accent-hover);
+  --accent-soft: var(--ds-color-accent-tint);
+  --status-draft: var(--ds-status-draft);
+  --status-progress: var(--ds-status-progress);
+  --status-review: var(--ds-status-review);
+  --status-final: var(--ds-status-final);
+}
+
+/* -------------------------------------------------------------------------
+ * Dark theme: Graphite & Mineral
+ * ---------------------------------------------------------------------- */
+.dark,
+.theme-dark {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --ds-color-canvas: #202524;
+  --ds-color-sidebar: #292f2d;
+  --ds-color-surface: #303735;
+  --ds-color-surface-muted: #272d2b;
+  --ds-color-overlay: rgb(0 0 0 / 55%);
+
+  /* Borders */
+  --ds-color-border: #3c4541;
+  --ds-color-border-strong: #4c5752;
+  --ds-color-control-border: #7a8680;
+
+  /* Text */
+  --ds-color-text: #e7eae7;
+  --ds-color-text-secondary: #9da7a2;
+  --ds-color-text-muted: #a5aea9;
+  --ds-color-text-faint: #7e8883;
+  --ds-color-text-placeholder: #8a948f;
+
+  /* Accent */
+  --ds-color-accent: #8ca9be;
+  --ds-color-accent-hover: #9fbacd;
+  --ds-color-accent-active: #aac4d6;
+  --ds-color-accent-tint: #34434b;
+  --ds-color-accent-strong: #9fbacd;
+  --ds-color-on-accent: #17201f;
+  --ds-color-focus: #9fbacd;
+
+  /* Interactive states */
+  --ds-color-hover: #353d3a;
+  --ds-color-active: #3d4642;
+  --ds-color-selected: #34434b;
+  --ds-color-selected-strong: #40525d;
+  --ds-color-disabled-bg: #2a302e;
+  --ds-color-disabled-text: #6e7873;
+
+  /* Semantic feedback */
+  --ds-color-danger: #d6a08f;
+  --ds-color-danger-hover: #e0b0a1;
+  --ds-color-danger-soft: #3d2d29;
+  --ds-color-warning: #d2b57a;
+  --ds-color-warning-soft: #3b3427;
+  --ds-color-success: #a3bba0;
+  --ds-color-success-soft: #2c3a30;
+  --ds-color-info: #9fbacd;
+  --ds-color-info-soft: #34434b;
+
+  /* Document status */
+  --ds-status-draft: #8a948f;
+  --ds-status-progress: #d2b57a;
+  --ds-status-review: #c0b8ca;
+  --ds-status-final: #a3bba0;
+
+  /* Project labels: base / soft / foreground */
+  --ds-project-slate-blue-base: #68849d;
+  --ds-project-slate-blue-soft: #3a4548;
+  --ds-project-slate-blue-foreground: #a8b7c2;
+
+  --ds-project-lavender-base: #9985ae;
+  --ds-project-lavender-soft: #43454b;
+  --ds-project-lavender-foreground: #c0b8ca;
+
+  --ds-project-sage-base: #8b9d83;
+  --ds-project-sage-soft: #404943;
+  --ds-project-sage-foreground: #b9c4b5;
+
+  --ds-project-terracotta-base: #bd8370;
+  --ds-project-terracotta-soft: #494540;
+  --ds-project-terracotta-foreground: #d2b6ac;
+
+  --ds-project-dusty-rose-base: #b98491;
+  --ds-project-dusty-rose-soft: #494546;
+  --ds-project-dusty-rose-foreground: #d0b7bc;
+
+  --ds-project-ochre-base: #b99a5f;
+  --ds-project-ochre-soft: #49493d;
+  --ds-project-ochre-foreground: #d0c2a3;
+
+  --ds-project-teal-base: #679a96;
+  --ds-project-teal-soft: #3a4946;
+  --ds-project-teal-foreground: #a7c2be;
+
+  --ds-project-graphite-base: #828a8a;
+  --ds-project-graphite-soft: #3f4644;
+  --ds-project-graphite-foreground: #b4bab8;
+
+  /* Compatibility aliases for existing raw-CSS consumers. */
+  --bg-canvas: var(--ds-color-canvas);
+  --bg-surface: var(--ds-color-surface);
+  --bg-sidebar: var(--ds-color-sidebar);
+  --bg-hover: var(--ds-color-hover);
+  --bg-active: var(--ds-color-active);
+  --line: var(--ds-color-border);
+  --line-strong: var(--ds-color-border-strong);
+  --text-main: var(--ds-color-text);
+  --text-muted: var(--ds-color-text-muted);
+  --text-faint: var(--ds-color-text-faint);
+  --accent: var(--ds-color-accent);
+  --accent-hover: var(--ds-color-accent-hover);
+  --accent-solid: var(--ds-color-accent);
+  --accent-solid-hover: var(--ds-color-accent-hover);
+  --accent-soft: var(--ds-color-accent-tint);
+  --status-draft: var(--ds-status-draft);
+  --status-progress: var(--ds-status-progress);
+  --status-review: var(--ds-status-review);
+  --status-final: var(--ds-status-final);
+}
+
+/* -------------------------------------------------------------------------
+ * Non-colour tokens and print/paper tokens.
+ * Paper stays light in both themes: page preview represents a physical page.
+ * ---------------------------------------------------------------------- */
+:root {
+  --ds-print-paper: #ffffff;
+  --ds-print-text: #242321;
+  --ds-print-muted: #66645f;
+  --ds-print-rule: #d5d3cf;
+  --ds-print-border: #c9c7c2;
+  --ds-print-header-bg: #f0efec;
+
+  --ds-font-ui: "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --ds-font-editor: "Literata", "Source Serif 4", Georgia, serif;
+  --ds-font-editor-alt: "Source Serif 4", "Literata", Georgia, serif;
+  --ds-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --ds-text-display-size: 32px;
+  --ds-text-display-line: 1.1;
+  --ds-text-display-weight: 600;
+  --ds-text-display-tracking: -0.03em;
+  --ds-text-title-size: 24px;
+  --ds-text-title-line: 1.2;
+  --ds-text-title-weight: 600;
+  --ds-text-title-tracking: -0.02em;
+  --ds-text-heading-size: 18px;
+  --ds-text-heading-line: 1.3;
+  --ds-text-heading-weight: 600;
+  --ds-text-heading-tracking: -0.01em;
+  --ds-text-body-size: 14px;
+  --ds-text-body-line: 1.6;
+  --ds-text-ui-size: 13px;
+  --ds-text-ui-line: 1.5;
+  --ds-text-small-size: 12px;
+  --ds-text-small-line: 1.45;
+  --ds-text-caption-size: 11px;
+  --ds-text-caption-line: 1.4;
+  --ds-text-caption-tracking: 0.01em;
+  --ds-text-editor-size: 17px;
+  --ds-text-editor-line: 1.7;
+
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 20px;
+  --ds-space-6: 24px;
+  --ds-space-8: 32px;
+  --ds-space-10: 40px;
+  --ds-space-12: 48px;
+
+  --ds-radius-sm: 4px;
+  --ds-radius-md: 6px;
+  --ds-radius-lg: 10px;
+  --ds-radius-xl: 14px;
+  --ds-border-width: 1px;
+
+  --ds-duration-micro: 120ms;
+  --ds-duration-fast: 160ms;
+  --ds-duration-base: 220ms;
+  --ds-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --ds-shadow-card: 0 1px 2px rgb(32 37 36 / 5%);
+  --ds-shadow-popover: 0 10px 30px rgb(32 37 36 / 12%), 0 2px 6px rgb(32 37 36 / 6%);
+  --ds-shadow-sheet: 0 18px 48px rgb(32 37 36 / 16%), 0 2px 8px rgb(32 37 36 / 6%);
+}
+
+.dark,
+.theme-dark {
+  --ds-shadow-card: 0 1px 2px rgb(0 0 0 / 24%);
+  --ds-shadow-popover: 0 12px 34px rgb(0 0 0 / 48%), 0 2px 6px rgb(0 0 0 / 28%);
+  --ds-shadow-sheet: 0 22px 56px rgb(0 0 0 / 56%), 0 3px 10px rgb(0 0 0 / 32%);
+}
